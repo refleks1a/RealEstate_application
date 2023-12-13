@@ -36,8 +36,8 @@ class CustomUserManager(BaseUserManager):
         )  
 
         user.set_password(password)
-        extra_fields.setdefault("isSuperuser", False)
-        extra_fields.setdefault("isStaff", False)
+        extra_fields.setdefault("is_superuser", False)
+        extra_fields.setdefault("is_staff", False)
         user.save(using=self._db)
 
         return user
@@ -45,14 +45,14 @@ class CustomUserManager(BaseUserManager):
     def create_superuser(self, username, first_name, last_name,
                     email, password, **extra_fields):
         
-        extra_fields.setdefault("isStaff", True)
-        extra_fields.setdefault("isSuperuser", True)
-        extra_fields.setdefault("isActive", True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_active", True)
 
-        if extra_fields.get("isStaff") is not True:
+        if extra_fields.get("is_staff") is not True:
             raise ValueError(gettext_lazy("Superuser must have isStaff == True"))
         
-        if extra_fields.get("isSuperuser") is not True:
+        if extra_fields.get("is_superuser") is not True:
             raise ValueError(gettext_lazy("Superuser must have isSuperuser == True"))
         
         if not password:

@@ -13,12 +13,12 @@ class UserAdmin(BaseUserAdmin):
 
     list_display = ["pkid", "id", "email", "username",
                      "first_name","last_name",
-                       "isStaff", "isActive"]
+                       "is_staff", "is_active"]
     
     list_display_links = ["id", "email"]
 
     list_filter = ["email", "username", "first_name",
-                    "last_name","isStaff", "isActive"]
+                    "last_name","is_staff", "is_active"]
     
     fieldsets = (
         (
@@ -37,15 +37,15 @@ class UserAdmin(BaseUserAdmin):
         (
             gettext_lazy("Permitions and groups"),
             {
-                "fields": ("isActive", "isStaff",
-                            "isSuperuser", "groups",
+                "fields": ("is_active", "is_staff",
+                            "is_superuser", "groups",
                               "user_permissions",),
             },
         ),
         (
             gettext_lazy("Important dates"),
             {
-                "fields": ("lst_login", "date_joined",),
+                "fields": ("last_login", "date_joined",),
             },
         ),
 

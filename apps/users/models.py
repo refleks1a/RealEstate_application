@@ -13,8 +13,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=127, verbose_name=gettext_lazy("Frist name"))
     last_name = models.CharField(max_length=127, verbose_name=gettext_lazy("Last name"))
     email = models.EmailField(verbose_name=gettext_lazy("E-Mail adress"), unique=True)
-    isStaff = models.BooleanField(default=False)
-    isActive = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = "email"
