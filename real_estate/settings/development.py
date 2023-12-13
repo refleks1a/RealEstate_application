@@ -3,11 +3,14 @@ from .base import *
 
 DATABASES = {
     "default": {
-        "ENGINE": env("POSTGRES_ENGINE"),
-        "NAME": env("POSTGRES_DB"),
-        "USER": env("POSTGRES_USER"),
-        "PASSWORD": env("POSTGRES_PASSWORD"),
-        "HOST": env("PG_HOST"),
-        "PORT": env("PG_HOST"),
+        "ENGINE": env("MYSQL_DB_ENGINE"),
+        "NAME": env("MYSQL_DB"),
+        "USER": env("MYSQL_DB_USER"),
+        "PASSWORD": env("MYSQL_DB_PASSWORD"),
+        "HOST": env("MYSQL_DB_HOST"),
+        "PORT": env("MYSQL_DB_PORT"),
+        'OPTIONS': {  
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
+        },
     }
 }
