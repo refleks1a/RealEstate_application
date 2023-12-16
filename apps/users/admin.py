@@ -1,14 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy
-from .forms import CustonUserChangeForm, CustonUserCreationForm
+from .forms import CustomUserChangeForm, CustomUserCreationForm
 from .models import User
 
 
 class UserAdmin(BaseUserAdmin):
     ordering = ["email"]
-    add_form = CustonUserCreationForm
-    form = CustonUserChangeForm
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
     model = User
 
     list_display = ["pkid", "id", "email", "username",

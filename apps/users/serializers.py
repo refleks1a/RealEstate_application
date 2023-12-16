@@ -4,7 +4,9 @@ from djoser.serializers import UserCreateSerializer
 from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 
+
 User = get_user_model()
+
 
 class UserSerializer(serializers.ModelSerializer):
     gender = serializers.CharField(source="profile.gender")
@@ -26,7 +28,7 @@ class UserSerializer(serializers.ModelSerializer):
     def get_first_name(self, obj):
         return obj.first_name.title()
     
-    def get_lat_name(self, obj):
+    def get_last_name(self, obj):
         return obj.last_name.title()
     
     def to_representation(self, instance):
@@ -41,6 +43,6 @@ class UserSerializer(serializers.ModelSerializer):
 class CreateUserSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ["id", "username", "email", "first_nama",
+        fields = ["id", "username" , "email", "first_nama",
                   "lat_name", "password"]
         

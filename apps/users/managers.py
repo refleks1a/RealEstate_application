@@ -9,7 +9,7 @@ class CustomUserManager(BaseUserManager):
         try:
             validate_email(email)
         except ValidationError:
-            raise ValueError(gettext_lazy("A valid email adress should be provided!"))
+            raise ValueError(gettext_lazy("A valid email address should be provided!"))
         
 
     def create_user(self, username, first_name, last_name,
@@ -21,11 +21,12 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(gettext_lazy("The user must submit the first name!"))
         if not last_name:
             raise ValueError(gettext_lazy("The user must submit the last name!"))
+        
         if email:
             email = self.normalize_email(email)
             self.email_validator(email)
         else:
-            raise ValueError(gettext_lazy("Base user account: An email adress is required!")) 
+            raise ValueError(gettext_lazy("Base user account: An email address is required!")) 
 
         user = self.model(
             username = username,
@@ -62,10 +63,11 @@ class CustomUserManager(BaseUserManager):
             email = self.normalize_email(email)
             self.email_validator(email)
         else:
-            raise ValueError(gettext_lazy("Admin account: An email adress is required!"))
+            raise ValueError(gettext_lazy("Admin account: An email address is required!"))
         
         user = self.create_user(username, first_name, last_name, email, password,
                                  **extra_fields)
+        
         user.save(using=self._db)
 
         return user
