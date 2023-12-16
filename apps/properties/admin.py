@@ -4,7 +4,7 @@ from .models import Property, PropertyViews
 
 class PropertyAdmin(admin.ModelAdmin):
     list_display = [
-        "title", "country", "advert_type", "property_type",
+        "title", "country", "advert_type", "property_type", "slug",
     ]
     list_filter = [
         "advert_type", "property_type", "country",

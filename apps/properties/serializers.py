@@ -6,16 +6,14 @@ from .models import Property, PropertyViews
 class PropertySerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     country = CountryField(name_only=True)
-    
     class Meta:
         model = Property
         fields = [
             "id",
             "user",
-            "profile_photo",
             "title",
             "slug",
-            "ref_code",
+            "reference_code",
             "description",
             "country",
             "city",
@@ -41,7 +39,7 @@ class PropertySerializer(serializers.ModelSerializer):
         ]
 
     def get_user(self,obj):
-        return self.user.username
+        return obj.user.username
     
 
 class PropertyCreateSerializer(serializers.ModelSerializer):
