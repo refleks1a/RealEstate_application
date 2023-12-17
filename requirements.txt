@@ -13,3 +13,4 @@ black==23.11.0
 isort==5.12.0
 djoser==2.2.2
 mysqlclient==2.2.0
+mysql-connector-python==8.2.0

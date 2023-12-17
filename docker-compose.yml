@@ -30,10 +30,12 @@ services:
       - MYSQL_DB=${MYSQL_DB}
       - MYSQL_DB_USER=${MYSQL_DB_USER}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DB_PORT=${MYSQL_DB_PORT}
+      - MYSQL_DB_HOST=${MYSQL_DB_HOST}
     networks:
       - estate-react
 
-networks: 
+networks:
   estate-react:
     driver: bridge
 
