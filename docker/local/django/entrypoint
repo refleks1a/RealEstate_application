@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -o errexit
+
+set -o pipefail
+
+set -o nounset
+
+mysql_ready(){
+python <<END
+import sys
+import psycopg2    
+try:
+    psycopg2.connect(
+        dbname="$MYSQL_DB",
+        user="$MYSQL_DB_USER",
+        password="$MYSQL_DB_PASSWORD",
+        host="$MYSQL_DB_HOST",
+        port="$MYSQL_DB_PORT",
+    ) 
+except psycopg2.OperationalError:
+    sys.exit(-1)
+sys.exit(0)    
+END
+}
+
+until mysql_ready; do
+ >&2 echo "Waiting for MySQL to become available...."
+ sleep 1
+done 
+>&2 echo "MySQL is ready!!!"
+
+exec "$@" 
