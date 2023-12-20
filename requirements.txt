@@ -14,6 +14,7 @@ isort==5.12.0
 djoser==2.2.2
 mysqlclient==2.2.0
 mysql-connector-python==8.2.0
+pytest==7.4.3
 pytest-django==4.7.0
 pytest-factoryboy==2.6.0
 Faker==21.0.0
