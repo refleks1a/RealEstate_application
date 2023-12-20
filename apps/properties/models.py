@@ -1,12 +1,13 @@
-from django.db import models
-import random, string
+import random
+import string
 
 from autoslug import AutoSlugField
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
-from django.db.models.query import QuerySet
+from django.db import models
 from django.utils.translation import gettext_lazy
 from django_countries.fields import CountryField
+
 from apps.common.models import TimeStampedUUIDModel
 
 
@@ -98,7 +99,6 @@ class Property(TimeStampedUUIDModel):
         verbose_name = gettext_lazy('Property')
         verbose_name_plural = gettext_lazy("Properties")
 
-
     def save(self, *args, **kwargs):
         self.title = str.title(self.title)
         self.description = str.capitalize(self.description)
@@ -106,7 +106,6 @@ class Property(TimeStampedUUIDModel):
             string.ascii_uppercase + string.digits + string.ascii_lowercase, k=15
             ))
         super(Property, self).save(*args, **kwargs)
-
 
     @property
     def final_property_price(self):
@@ -129,5 +128,4 @@ class PropertyViews(TimeStampedUUIDModel):
     class Meta:
         verbose_name = "Total views on property"
         verbose_name_plural = "Total property views"
-    
     

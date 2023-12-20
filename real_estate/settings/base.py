@@ -1,11 +1,11 @@
-import environ
-from pathlib import Path
-
 import logging
 import logging.config
+from datetime import timedelta
+from pathlib import Path
+
+import environ
 from django.utils.log import DEFAULT_LOGGING
 
-from datetime import timedelta
 
 env = environ.Env(DEBUG=(bool,False))
 

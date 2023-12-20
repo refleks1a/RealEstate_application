@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import (AgentListAPIView, GetProfileAPIView, TopAgentsListAPIView, UpdateProfileAPIView)
+
+from .views import (AgentListAPIView, GetProfileAPIView, TopAgentsListAPIView,
+                    UpdateProfileAPIView)
 
 
 urlpatterns = [

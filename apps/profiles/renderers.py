@@ -1,4 +1,5 @@
 import json
+
 from rest_framework.renderers import JSONRenderer
 
 
@@ -12,4 +13,3 @@ class ProfileJSONRenderer(JSONRenderer):
             return super(ProfileJSONRenderer, self).render(data)
         
         return json.dumps({"profile": data})
-

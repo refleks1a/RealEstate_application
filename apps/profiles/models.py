@@ -1,10 +1,10 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils.translation import gettext_lazy
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
-from apps.common.models import TimeStampedUUIDModel
 
+from apps.common.models import TimeStampedUUIDModel
 
 User = get_user_model()
 
@@ -46,3 +46,4 @@ class Profile(TimeStampedUUIDModel):
     
     def __str__(self):
         return f"{self.user.username}'s profile"
+    

@@ -9,6 +9,4 @@ class ProfileNotFound(APIException):
 class NotYourProfile(APIException):
     status_code = 403
     default_detail = "You can't edit the profile that is not yours!"
-
-
-    
+  

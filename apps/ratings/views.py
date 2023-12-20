@@ -1,11 +1,12 @@
-from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from apps.profiles.models import Profile
+
 from .models import Rating
+
 
 User = get_user_model()
 
@@ -45,4 +46,5 @@ def create_agent_review(request, profile_id):
         for i in reviews:
             total += i.rating
 
-        return Response("Review added!")    
+        return Response("Review added!") 
+       

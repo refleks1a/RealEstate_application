@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -56,3 +55,4 @@ class UpdateProfileAPIView(APIView):
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
