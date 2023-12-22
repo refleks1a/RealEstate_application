@@ -34,7 +34,7 @@ class Profile(TimeStampedUUIDModel):
     
     is_buyer = models.BooleanField(verbose_name=gettext_lazy("Buyer"), default=False,
                                 help_text=gettext_lazy("Are you looking to buy a property?"))
-    is_seller = models.BooleanField(verbose_name=gettext_lazy("Buyer"), default=False,
+    is_seller = models.BooleanField(verbose_name=gettext_lazy("Seller"), default=False,
                                     help_text=gettext_lazy("Are you looking to sell a property?"))
     is_agent = models.BooleanField(verbose_name=gettext_lazy("Agent"), default=False,
                                    help_text=gettext_lazy("Are an agent?"))
