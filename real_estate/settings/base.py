@@ -46,6 +46,7 @@ THIRD_PARTY_APPS = [
     "phonenumber_field",
     "djoser",
     "rest_framework_simplejwt",
+    "corsheaders",
 ]
 
 LOCAL_APPS = [
@@ -55,6 +56,7 @@ LOCAL_APPS = [
     "apps.users",
     "apps.properties",
     "apps.enquiries",
+    "frontend",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -62,6 +64,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -215,3 +218,5 @@ logging.config.dictConfig(
         },
     }
 )
+
+CORS_ORIGIN_ALLOW_ALL = True
