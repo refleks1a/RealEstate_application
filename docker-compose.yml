@@ -4,42 +4,98 @@ services:
   api:
     build:
       context: .
-      dockerfile: ./docker/local/django/DockerFile
-    command: /start  
+      dockerfile: ./docker/local/django/Dockerfile
+    command: gunicorn real_estate.wsgi --bind 0.0.0.0:8001 && python manage.py migrate --no-input && python manage.py collectstatic  
     volumes: 
       - .:/app
       - static_volume:/app/staticfiles
       - media_volume:/app/mediafiles
-    ports: 
-      - "8000:8000"
+    expose:
+      - "8000"
+    depends_on:
+      - db  
+      - redis  
     env_file:
       - .env
-    depends_on:
-      - mysql-db
     networks:
       - estate-react
 
-  mysql-db:
-    image: mysql:8.2.0
-    ports: 
-      - "3306:3306"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./docker/local/Dockerfile
+    restart: on-failure
     volumes:
-      - mysql_data:/var/lib/mysql
-    environment:
-      - MYSQL_DB_PASSWORD=${MYSQL_DB_PASSWORD}
-      - MYSQL_DB=${MYSQL_DB}
-      - MYSQL_DB_USER=${MYSQL_DB_USER}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DB_PORT=${MYSQL_DB_PORT}
-      - MYSQL_DB_HOST=${MYSQL_DB_HOST}
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - estate-react  
+
+  redis:
+    image: redis
     networks:
       - estate-react
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    command: /start-celeryworker
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+    networks:
+      - estate-react
+
+  flower:
+    image: mher/flower:0.9.7
+    command: ['flower', '--broker=redis://redis:6379', '--port=5555']
+    platform: linux/amd64
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    ports:
+      - "5557:5555"
+    depends_on:
+      - redis
+      - db
+    networks:
+      - estate-react 
+
+  db:
+    image: mysql
+    volumes:
+      - ./data/mysql/db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_NAME}
+    networks:
+      - estate-react
+
+  nginx:
+    restart: always
+    depends_on:
+        - api
+    volumes:
+        - static_volume:/app/staticfiles
+        - media_volume:/app/mediafiles
+    build:
+        context: ./docker/local/nginx
+        dockerfile: Dockerfile
+    ports:
+        - "8080:80"
+    networks:
+        - estate-react      
 
 networks:
   estate-react:
     driver: bridge
 
 volumes:
-  mysql_data:
   static_volume:
   media_volume:
