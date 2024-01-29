@@ -19,6 +19,7 @@ const AboutUs = React.lazy(() => import("./pages/AboutUs"));
 const LandingPage = React.lazy(() => import("./pages/LandingPage"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Register = React.lazy(() => import("./pages/Register"));
+const Activate = React.lazy(() => import("./pages/Activate"));
 
 
 const ProjectRoutes = () => {
@@ -41,6 +42,7 @@ const ProjectRoutes = () => {
 
           <Route path="/login" element={<Login />} />
           <Route path="/register"  element={<Register/>} />
+          <Route path="/activate/:uid/:token"  element={<Activate/>} />
 
           <Route path="/contactpage" element={<ContactPage />} />
           

@@ -1,9 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+
 import { Button, Img, List, Text } from "..";
+import { logout, reset } from "../../features/auth/authSlice";
+
 
 const LandingPageHeader = (props) => {
+
+	const dispatch = useDispatch();
+
+	const { user } = useSelector((state) => state.auth);
+
+	const logoutHandler = () => {
+		dispatch(logout());
+		dispatch(reset());
+	};
+
   return (
     <>
       <header className={props.className}>
@@ -74,11 +88,19 @@ const LandingPageHeader = (props) => {
                 Search
               </div>
             </Button>
-            <Link to={"/login"} className="py-2.5 w-full" >
-              <Button className="bg-gray-900 cursor-pointer font-manrope font-semibold py-2.5 rounded-[10px] text-base text-center text-white-A700 w-full">
-                Log in
-              </Button>   
-            </Link>         
+            {user ? (
+                <Button className="bg-gray-900 cursor-pointer font-manrope font-semibold py-2.5 rounded-[10px] text-base text-center text-white-A700 w-full"
+                onClick={logoutHandler}
+                >
+                  Log out
+                </Button>   
+            ): (
+              <Link to={"/login"} className="py-2.5 w-full" >
+                <Button className="bg-gray-900 cursor-pointer font-manrope font-semibold py-2.5 rounded-[10px] text-base text-center text-white-A700 w-full">
+                  Log in
+                </Button>   
+              </Link>   
+            )}
           </div>
         </div>
       </header>

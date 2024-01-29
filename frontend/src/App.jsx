@@ -1,13 +1,14 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Provider } from "react-redux";
 import React from "react";
 import Routes from "./Routes";
+import { store } from "./app/store";
 
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+    <Provider store={store}>
       <Routes />
-    </GoogleOAuthProvider>
+    </Provider>
   );
 }
 
