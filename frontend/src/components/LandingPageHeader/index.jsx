@@ -9,15 +9,18 @@ const LandingPageHeader = (props) => {
       <header className={props.className}>
         <div className="flex md:flex-col flex-row md:gap-10 items-center justify-between w-full">
           <div className="header-row my-px">
-            <div className="flex flex-row gap-[11px] items-center justify-start">
-              <Img className="h-10 w-10" src="images/img_home.svg" alt="home" />
-              <Text
-                className="text-orange-A700 text-xl w-auto"
-                size="txtMarkoOneRegular20"
-              >
-                Relasto
-              </Text>
-            </div>
+            <Link to="/" >
+              <div className="flex flex-row gap-[11px] items-center justify-start">
+                <Img className="h-10 w-10" src="images/img_home.svg" alt="home" />
+                <Text
+                  className="text-orange-A700 text-xl w-auto"
+                  size="txtMarkoOneRegular20"
+                >
+                  Relasto
+                </Text>
+              </div>
+            </Link>
+            
             <div className="mobile-menu">
               <div></div>
               <div></div>
@@ -71,9 +74,11 @@ const LandingPageHeader = (props) => {
                 Search
               </div>
             </Button>
-            <Button className="bg-gray-900 cursor-pointer font-manrope font-semibold py-2.5 rounded-[10px] text-base text-center text-white-A700 w-full">
-              Log in
-            </Button>
+            <Link to={"/login"} className="py-2.5 w-full" >
+              <Button className="bg-gray-900 cursor-pointer font-manrope font-semibold py-2.5 rounded-[10px] text-base text-center text-white-A700 w-full">
+                Log in
+              </Button>   
+            </Link>         
           </div>
         </div>
       </header>

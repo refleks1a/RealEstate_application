@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Img, Input, Line, List, Text } from "../../components";
+import { Img, Input, Line, List, Text } from "../../components";
 import Header from "../../components/Header";
 
 import { CloseSVG } from "../../assets/images";
