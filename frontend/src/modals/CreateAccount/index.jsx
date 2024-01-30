@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { toast } from "react-toastify";
 
-import { register, reset } from "../../features/auth/authSlice";
+import { register, reset, logout } from "../../features/auth/authSlice";
+
 
 import { Button, CheckBox, Img, Input, Line, Text } from "../../components";
 
@@ -29,12 +30,14 @@ const CreateAccountModal = (props) => {
 			toast.error(message);
 		}
 
-		if (isSuccess || user) {
-      toast.success(
-				"An activation email has been sent your email address. Please check your email"
-			);
-			navigate("/");
+		if (isSuccess) {
+      logout()
+			navigate("/activate/alert");      
 		}
+
+    if (user) {
+      navigate("/activate/alert")
+    } 
 
 		dispatch(reset());
 	}, [isError, isSuccess, message, user, navigate, dispatch]);
