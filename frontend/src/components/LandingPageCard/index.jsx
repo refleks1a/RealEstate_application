@@ -3,13 +3,14 @@ import React from "react";
 import { Button, Img, Text } from "..";
 
 const LandingPageCard = (props) => {
+
   return (
     <>
-      <div className={props.className}>
+      <div className={props.className} style={{width: "395px"}}>
         <Img
           className="h-[260px] sm:h-auto object-cover w-full"
           alt="image"
-          src={props?.image}
+          src={props.property.cover_photo}
         />
         <div className="bg-gray-51 border border-red-101 border-solid flex flex-col items-start justify-start px-5 py-[30px] rounded-bl-[10px] rounded-br-[10px] w-full">
           <div className="flex flex-col gap-[27px] items-start justify-start w-full">
@@ -19,7 +20,7 @@ const LandingPageCard = (props) => {
                 className="flex-1 text-base text-gray-900 w-auto"
                 size="txtManropeSemiBold16"
               >
-                {props?.p286162ndaveoaklone}
+                {props?.property.country}, {props?.property.city}, {props?.property.street_address}
               </Text>
             </div>
             <div className="flex flex-col gap-[21px] items-start justify-start w-full">
@@ -34,7 +35,7 @@ const LandingPageCard = (props) => {
                     className="flex-1 text-base text-gray-700 w-auto"
                     size="txtManropeSemiBold16Gray700"
                   >
-                    {props?.p3bedroom}
+                    {props?.property.bedrooms} bedroom(s)
                   </Text>
                 </div>
                 <div className="flex flex-1 flex-row gap-3 items-center justify-start w-full">
@@ -47,7 +48,7 @@ const LandingPageCard = (props) => {
                     className="text-base text-gray-700 w-auto"
                     size="txtManropeSemiBold16Gray700"
                   >
-                    {props?.bathcounter}
+                    {props?.property.bathrooms.slice(0,-1)} bathroom(s)
                   </Text>
                 </div>
               </div>
@@ -62,7 +63,7 @@ const LandingPageCard = (props) => {
                     className="flex-1 text-base text-gray-700 w-auto"
                     size="txtManropeSemiBold16Gray700"
                   >
-                    {props?.sqftcounter}
+                    {props?.property.plot_area.slice(0,-1)} sqft
                   </Text>
                 </div>
                 <div className="flex flex-1 flex-row gap-3 items-center justify-start w-full">
@@ -75,7 +76,7 @@ const LandingPageCard = (props) => {
                     className="text-base text-gray-700 w-auto"
                     size="txtManropeSemiBold16Gray700"
                   >
-                    {props?.p1bath}
+                    {props?.property.advert_type}
                   </Text>
                 </div>
               </div>
@@ -88,7 +89,7 @@ const LandingPageCard = (props) => {
                 className="flex-1 text-2xl md:text-[22px] text-gray-900 sm:text-xl tracking-[-0.48px] w-auto"
                 size="txtManropeBold24Gray900"
               >
-                {props?.price}
+                $ {props?.property.price.slice(0,-1)}
               </Text>
             </div>
           </div>

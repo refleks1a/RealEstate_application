@@ -9,3 +9,4 @@ export { SelectBox } from "./SelectBox";
 export { Slider } from "./Slider";
 export { ReactTable } from "./Table";
 export { Text } from "./Text";
+export { PropertiesList } from "./PropertiesList"

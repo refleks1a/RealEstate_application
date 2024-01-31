@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import propertyAPIService from "./propertyAPIService";
 
+
 const initialState = {
 	properties: [],
 	property: {},
@@ -9,6 +10,7 @@ const initialState = {
 	isSuccess: false,
 	message: "",
 };
+
 
 // get all properties
 export const getProperties = createAsyncThunk(
@@ -28,6 +30,7 @@ export const getProperties = createAsyncThunk(
 		}
 	}
 );
+
 
 export const propertySlice = createSlice({
 	name: "property",

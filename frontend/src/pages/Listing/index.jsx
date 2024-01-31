@@ -1,17 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Button,
-  GoogleMap,
   Img,
   Input,
-  List,
   SelectBox,
   Text,
+  PropertiesList,
 } from "../../components";
-import LandingPageCard from "../../components/LandingPageCard";
+
 import LandingPageFooter from "../../components/LandingPageFooter";
 import LandingPageHeader from "../../components/LandingPageHeader";
+
+import { getProperties } from "../../features/properties/propertySlice";
+
 
 const dropdownlargeOptionsList = [
   { label: "Option1", value: "option1" },
@@ -29,7 +32,19 @@ const dropdownlargeOneOptionsList = [
   { label: "Option3", value: "option3" },
 ];
 
+
 const ListingPage = () => {
+  const {properties, isLoading, isError, message} = useSelector(
+      (state) => state.properties
+  )
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+  dispatch(getProperties());
+  }, [dispatch, isError, message]);
+
   const landingPageCardPropList = [
     {},
     { image: "images/img_image_1.png" },
@@ -227,150 +242,11 @@ const ListingPage = () => {
           </div>
           <div className="flex flex-col font-manrope items-center justify-center md:px-10 sm:px-5 px-[120px] w-full">
             <div className="flex md:flex-col flex-row gap-6 items-start justify-center max-w-[1200px] mx-auto w-full">
-              <div className="h-[511px] relative w-[32%] md:w-full">
-                <div className="h-[511px] m-auto w-full">
-                  <GoogleMap
-                    className="h-[511px] m-auto rounded-[10px] w-full"
-                    showMarker={false}
-                  ></GoogleMap>
-                  <Img
-                    className="absolute h-[427px] inset-y-[0] my-auto right-[6%]"
-                    src="images/img_group1000001533.svg"
-                    alt="group1000001533"
-                  />
-                </div>
-                <div className="absolute bg-white-A700 border border-gray-600 border-solid flex flex-col h-max inset-y-[0] items-center justify-start left-[7%] my-auto px-4 py-6 rounded-lg w-[308px]">
-                  <div className="flex flex-col gap-[21.66px] items-start justify-start w-full">
-                    <div className="flex flex-row gap-[9.63px] items-center justify-start w-full">
-                      <Img
-                        className="h-[19px] w-[19px]"
-                        src="images/img_eye.svg"
-                        alt="eye"
-                      />
-                      <Text
-                        className="flex-1 text-[12.83px] text-gray-900 w-auto"
-                        size="txtManropeSemiBold1283"
-                      >
-                        2861 62nd Ave, Oakland, CA 94605
-                      </Text>
-                    </div>
-                    <List
-                      className="flex flex-col gap-[16.84px] items-start w-full"
-                      orientation="vertical"
-                    >
-                      <div className="flex flex-1 flex-row gap-[32.08px] items-center justify-between my-0 w-full">
-                        <div className="flex flex-1 flex-row gap-[9.63px] items-center justify-start w-full">
-                          <Img
-                            className="h-4 w-4"
-                            src="images/img_bookmark.svg"
-                            alt="bookmark"
-                          />
-                          <Text
-                            className="flex-1 text-[12.83px] text-gray-700 w-auto"
-                            size="txtManropeSemiBold1283Gray700"
-                          >
-                            3 Bed Room
-                          </Text>
-                        </div>
-                        <div className="flex flex-1 flex-row gap-[9.63px] items-center justify-start w-full">
-                          <Img
-                            className="h-4 w-4"
-                            src="images/img_ticket.svg"
-                            alt="ticket"
-                          />
-                          <Text
-                            className="text-[12.83px] text-gray-700 w-auto"
-                            size="txtManropeSemiBold1283Gray700"
-                          >
-                            1 Bath
-                          </Text>
-                        </div>
-                      </div>
-                      <div className="flex flex-1 flex-row gap-[32.08px] items-center justify-between my-0 w-full">
-                        <div className="flex flex-1 flex-row gap-[9.63px] items-center justify-start w-full">
-                          <Img
-                            className="h-4 w-4"
-                            src="images/img_icon.svg"
-                            alt="icon"
-                          />
-                          <Text
-                            className="flex-1 text-[12.83px] text-gray-700 w-auto"
-                            size="txtManropeSemiBold1283Gray700"
-                          >
-                            1,032 sqft
-                          </Text>
-                        </div>
-                        <div className="flex flex-1 flex-row gap-[9.63px] items-center justify-start w-full">
-                          <Img
-                            className="h-4 w-4"
-                            src="images/img_iocnmenu.svg"
-                            alt="iocnmenu"
-                          />
-                          <Text
-                            className="text-[12.83px] text-gray-700 w-auto"
-                            size="txtManropeSemiBold1283Gray700"
-                          >
-                            Family
-                          </Text>
-                        </div>
-                      </div>
-                    </List>
-                    <div className="flex flex-col items-center justify-start w-full">
-                      <Text
-                        className="text-[19.25px] text-gray-900 tracking-[-0.39px] w-auto"
-                        size="txtManropeBold1925"
-                      >
-                        $649,900
-                      </Text>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <div className="flex flex-1 flex-col md:gap-10 gap-[60px] items-start justify-start w-full">
                 <div className="flex flex-col items-start justify-start w-full">
                   <div className="md:gap-5 gap-6 grid md:grid-cols-1 grid-cols-2 justify-center min-h-[auto] w-full">
-                    {landingPageCardPropList.map((props, index) => (
-                      <React.Fragment key={`LandingPageCard${index}`}>
-                        <LandingPageCard
-                          className="flex flex-1 flex-col h-[512px] md:h-auto items-start justify-start w-full"
-                          {...props}
-                        />
-                      </React.Fragment>
-                    ))}
+                    <PropertiesList/>
                   </div>
-                </div>
-                <div className="flex sm:flex-col flex-row gap-5 items-center justify-between w-full">
-                  <div className="flex flex-row gap-[5px] items-start justify-start w-auto">
-                    <Button className="border border-gray-700 border-solid cursor-pointer font-semibold h-12 py-[13px] rounded-[10px] text-base text-center text-gray-900 w-12">
-                      1
-                    </Button>
-                    <Button className="border border-bluegray-102 border-solid cursor-pointer font-semibold h-12 py-[13px] rounded-[10px] text-base text-center text-gray-900 w-12">
-                      2
-                    </Button>
-                    <Button className="border border-bluegray-102 border-solid cursor-pointer font-semibold h-12 py-[13px] rounded-[10px] text-base text-center text-gray-900 w-12">
-                      3
-                    </Button>
-                    <Button className="border border-bluegray-102 border-solid cursor-pointer font-semibold h-12 py-[13px] rounded-[10px] text-base text-center text-gray-900 w-12">
-                      4
-                    </Button>
-                    <Button className="border border-bluegray-102 border-solid cursor-pointer font-semibold h-12 py-[13px] rounded-[10px] text-base text-center text-gray-900 w-12">
-                      5
-                    </Button>
-                  </div>
-                  <Button
-                    className="border border-bluegray-102 border-solid cursor-pointer flex items-center justify-center min-w-[134px] px-[17px] py-[13px] rounded-[10px]"
-                    rightIcon={
-                      <Img
-                        className="h-4 mt-px mb-[5px] ml-1"
-                        src="images/img_arrowright_gray_900.svg"
-                        alt="arrow_right"
-                      />
-                    }
-                  >
-                    <div className="font-semibold text-base text-gray-900 text-left">
-                      Next Page
-                    </div>
-                  </Button>
                 </div>
               </div>
             </div>
