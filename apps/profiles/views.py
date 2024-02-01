@@ -31,6 +31,18 @@ class GetProfileAPIView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
+class GetUserProfile(APIView):
+    
+    def get(self, request, id):
+        try:
+            profile = Profile.objects.get(id=id)
+        except Profile.DoesNotExist:
+            raise ProfileNotFound
+
+        serializer = ProfileSerializer(profile, context={"request":request})   
+        return Response(serializer.data, status=status.HTTP_200_OK) 
+    
+
 class UpdateProfileAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     renderer_classes = [ProfileJSONRenderer]

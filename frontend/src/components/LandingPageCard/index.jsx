@@ -10,7 +10,7 @@ const LandingPageCard = (props) => {
         <Img
           className="h-[260px] sm:h-auto object-cover w-full"
           alt="image"
-          src={props.property.cover_photo}
+          src={props?.property.cover_photo}
         />
         <div className="bg-gray-51 border border-red-101 border-solid flex flex-col items-start justify-start px-5 py-[30px] rounded-bl-[10px] rounded-br-[10px] w-full">
           <div className="flex flex-col gap-[27px] items-start justify-start w-full">

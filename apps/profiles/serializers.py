@@ -12,8 +12,11 @@ class ProfileSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source="user.last_name")
     email = serializers.EmailField(source="user.email")
     full_name = serializers.SerializerMethodField(read_only=True)
+
     country = CountryField(name_only=True)
     reviews = serializers.SerializerMethodField(read_only=True)
+
+    profile_photo = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Profile
@@ -34,6 +37,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         serializer = RatingSerializer(reviews, many=True)
 
         return serializer.data
+    
+    def get_profile_photo(self, obj):
+        return obj.profile_photo.url
     
     def to_representation(self, instance):
         representation = super().to_representation(instance)

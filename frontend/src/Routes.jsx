@@ -39,7 +39,7 @@ const ProjectRoutes = () => {
           <Route path="/propertydetails" element={<PropertyDetails />} />
 
           <Route path="/agentlist" element={<AgentList />} />
-          <Route path="/agentprofile" element={<AgentProfile />} />
+          <Route path="/agentprofile/:id" element={<AgentProfile />} />
 
           <Route path="/login" element={<Login />} />
           <Route path="/register"  element={<Register/>} />
