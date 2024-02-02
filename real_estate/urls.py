@@ -15,6 +15,8 @@ urlpatterns = [
     path("api/v1/ratings/", include("apps.ratings.urls")),
     
     path("api/v1/enquiries/", include("apps.enquiries.urls")),
+
+    path("api/v1/blog/", include("apps.blog.urls"))
 ]
 
 admin.site.site_header = "Real Estate Admin"
