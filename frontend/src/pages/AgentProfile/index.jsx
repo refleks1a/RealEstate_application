@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 
 import { Button, Img, Line, List, SelectBox, Text, PropertiesList } from "../../components";
 
@@ -529,7 +530,7 @@ const AgentProfilePage = () => {
                                   className="flex-1 text-gray-600 text-xl tracking-[-0.40px] w-auto"
                                   size="txtManropeSemiBold20Gray600"
                                 >
-                                  {review.created_at}
+                                  {moment(review.created_at).format("YYYY/MM/DD kk:mm")}
                                 </Text>
                               </div>
                               <div className="flex md:flex-col flex-row gap-4 items-center justify-start w-full">

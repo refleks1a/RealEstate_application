@@ -32,6 +32,27 @@ export const getProperties = createAsyncThunk(
 );
 
 
+// get property details
+export const getPropertyDetails = createAsyncThunk(
+	"properties/getDetails",
+	async (data, thunkAPI) => {
+		try {
+			return await propertyAPIService.getPropertyDetails(data);
+		} catch (error) {
+			const message =
+				(error.response &&
+					error.response.data &&
+					error.response.data.message) ||
+				error.message ||
+				error.toString();
+
+			return thunkAPI.rejectWithValue(message);
+		}
+	}
+);
+
+
+
 export const propertySlice = createSlice({
 	name: "property",
 	initialState,
@@ -40,6 +61,8 @@ export const propertySlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
+
+
 			.addCase(getProperties.pending, (state) => {
 				state.isLoading = true;
 			})
@@ -52,7 +75,24 @@ export const propertySlice = createSlice({
 				state.isLoading = false;
 				state.isError = true;
 				state.message = action.payload;
+			})
+
+			
+			.addCase(getPropertyDetails.pending, (state) => {
+				state.isLoading = true;
+			})
+			.addCase(getPropertyDetails.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.isSuccess = true;
+				state.property = action.payload;
+			})
+			.addCase(getPropertyDetails.rejected, (state, action) => {
+				state.isLoading = false;
+				state.isError = true;
+				state.message = action.payload;
 			});
+
+
 	},
 });
 

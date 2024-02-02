@@ -111,7 +111,7 @@ class Property(TimeStampedUUIDModel):
     def final_property_price(self):
         tax_percentage = self.tax    
         property_price = self.price
-        tax_amount = round(tax_percentage*property_price, 2)
+        tax_amount = round(tax_percentage*property_price, 2)/100
         price_after_tax = float(round(property_price + tax_amount, 2))
         
         return price_after_tax

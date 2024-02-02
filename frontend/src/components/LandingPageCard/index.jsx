@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { Button, Img, Text } from "..";
+
 
 const LandingPageCard = (props) => {
 
@@ -82,9 +84,12 @@ const LandingPageCard = (props) => {
               </div>
             </div>
             <div className="flex flex-row gap-[31px] items-center justify-start w-full">
-              <Button className="bg-gray-900 cursor-pointer flex-1 font-manrope font-semibold py-[13px] rounded-[10px] text-base text-center text-white-A700 w-full">
-                {props?.viewDetails}
-              </Button>
+              <Link to={`/propertydetails/${props?.property.title}`} style={{width: "150px"}} >
+                <Button className="bg-gray-900 cursor-pointer flex-1 font-manrope font-semibold py-[13px] rounded-[10px] text-base text-center text-white-A700 w-full">
+                  View Details
+                </Button>
+              </Link>
+              
               <Text
                 className="flex-1 text-2xl md:text-[22px] text-gray-900 sm:text-xl tracking-[-0.48px] w-auto"
                 size="txtManropeBold24Gray900"

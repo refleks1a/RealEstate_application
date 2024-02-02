@@ -2,11 +2,14 @@ from django_countries.serializer_fields import CountryField
 from rest_framework import serializers
 
 from .models import Property, PropertyViews
+from ..profiles.models import Profile
+from ..profiles.serializers import ProfileSerializer
 
 
 class PropertySerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField()
     country = CountryField(name_only=True)
+    profile = serializers.SerializerMethodField()
+
     cover_photo = serializers.SerializerMethodField()
     photo1 = serializers.SerializerMethodField()
     photo2 = serializers.SerializerMethodField()
@@ -17,7 +20,7 @@ class PropertySerializer(serializers.ModelSerializer):
         model = Property
         fields = [
             "id",
-            "user",
+            "profile",
             "title",
             "slug",
             "reference_code",
@@ -44,10 +47,12 @@ class PropertySerializer(serializers.ModelSerializer):
             "published_status",
             "views",
         ]
-
-    def get_user(self,obj):
-        return obj.user.username
     
+    def get_profile(self, obj):
+        profile = Profile.objects.get(user=obj.user)
+        serializer = ProfileSerializer(profile)
+        return serializer.data
+
     def get_cover_photo(self, obj):
         return obj.cover_photo.url
     
