@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Button, Img, Input, List, SelectBox, Text } from "../../components";
 import BlogPageColumnactive from "../../components/BlogPageColumnactive";
 import LandingPageFooter from "../../components/LandingPageFooter";
 import LandingPageHeader from "../../components/LandingPageHeader";
+
+import { getPosts } from "../../features/blog/blogSlice";
+
 
 const dropdownlargeOptionsList = [
   { label: "Option1", value: "option1" },
@@ -16,7 +20,32 @@ const dropdownlargeOneOptionsList = [
   { label: "Option3", value: "option3" },
 ];
 
+
 const BlogPagePage = () => {
+  const {posts, isLoading, isError, message} = useSelector(
+      (state) => state.blog
+  )
+
+  const { user, isLoadingUser, isErrorUser, isSuccessUser, messageUser } = useSelector(
+		(state) => state.auth
+	);
+
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isError) {
+			console.log(message)
+		}
+
+    const data = {
+      "token": user.access,
+    }
+
+    dispatch(getPosts(data));
+
+  }, [dispatch, isError, message]);
+
   return (
     <>
       <div className="bg-gray-51 flex flex-col font-markoone items-start justify-start mx-auto w-auto sm:w-full md:w-full">
@@ -83,11 +112,11 @@ const BlogPagePage = () => {
               </div>
               <div className="flex flex-col items-center justify-center w-full">
                 <div className="md:gap-5 gap-6 grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 justify-center min-h-[auto] w-full">
-                  {new Array(9).fill({}).map((props, index) => (
-                    <React.Fragment key={`BlogPageColumnactive${index}`}>
+                  {posts.map((post) => (
+                    <React.Fragment key={`BlogPageColumnactive${post.id}`}>
                       <BlogPageColumnactive
                         className="flex flex-1 flex-col gap-6 items-start justify-start w-full"
-                        {...props}
+                        post={post}
                       />
                     </React.Fragment>
                   ))}

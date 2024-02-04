@@ -49,7 +49,7 @@ const ProjectRoutes = () => {
           <Route path="/contactpage" element={<ContactPage />} />
           
           <Route path="/blogpage" element={<BlogPage />} />
-          <Route path="/blogdetails" element={<BlogDetails />} />
+          <Route path="/blog/details/:id" element={<BlogDetails />} />
 
           <Route path="/error" element={<Error />} />
 

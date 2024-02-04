@@ -43,7 +43,7 @@ const LandingPageHeader = (props) => {
           </div>
           <div className="flex sm:flex-1 sm:flex-col flex-row sm:hidden items-center justify-center w-[492px] sm:w-full">
             <List
-              className="sm:flex-col flex-row gap-10 grid grid-cols-3"
+              className="sm:flex-col flex-row gap-10 grid grid-cols-4"
               orientation="horizontal"
             >
               <div className="flex flex-row gap-1.5 items-start justify-center w-[77px]">
@@ -67,10 +67,18 @@ const LandingPageHeader = (props) => {
                   className="text-base text-gray-900 w-auto"
                   size="txtManropeSemiBold16"
                 >
-                  <Link to={"/agentlist"} >Agents</Link>
+                  {user ? (<Link to={"/agentlist"} >Agents</Link>) : (null)}
                 </Text>
               </div>
-              
+              <div className="flex flex-row gap-1.5 items-start justify-center w-[77px]">
+                <Text
+                  className="text-base text-gray-900 w-auto"
+                  size="txtManropeSemiBold16"
+                >
+                  {user ? ( <Link to={"/blogpage"}>Blog</Link>) : (null)}
+                </Text>
+              </div>
+
             </List>
           </div>
           <div className="flex flex-row gap-10 h-[42px] md:h-auto sm:hidden items-center justify-start w-[228px]">
