@@ -26,3 +26,4 @@ watchdog==3.0.0
 flake8==6.1.0
 black==23.11.0
 isort==5.12.0
+attrs==23.2.0
