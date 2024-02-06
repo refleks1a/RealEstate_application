@@ -3,12 +3,23 @@ from django.contrib.auth import login
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views import View
+from urllib.parse import urlencode
+from django.contrib import messages
+from django.urls import reverse_lazy
+import requests
 
 from .service import (
     GoogleRawLoginFlowService,
 )
 
 from apps.users.models import User
+from .models import CustomSession
+
+
+import environ
+
+
+env = environ.Env(DEBUG=(bool,False))
 
 
 class GoogleLoginRedirectApi(View):
@@ -17,7 +28,7 @@ class GoogleLoginRedirectApi(View):
 
         authorization_url, state = google_login_flow.get_authorization_url()
 
-        request.session["google_oauth2_state"] = state
+        CustomSession.objects.create(state=state, application="GOOGLE")
 
         return redirect(authorization_url)
 
@@ -46,15 +57,15 @@ class GoogleLoginApi(View):
         if code is None or state is None:
             return JsonResponse({"error": "Code and state are required."}, status=400)
 
-        session_state = request.session.get("google_oauth2_state")
+        session_state = CustomSession.objects.last()
 
         if session_state is None:
             return JsonResponse({"error": "CSRF check failed."}, status=400)
 
-        del request.session["google_oauth2_state"]
-
         if state != session_state:
             return JsonResponse({"error": "CSRF check failed."}, status=400)
+        
+        session_state.delete()
 
         google_login_flow = GoogleRawLoginFlowService()
 
@@ -64,10 +75,11 @@ class GoogleLoginApi(View):
         user_info = google_login_flow.get_user_info(google_tokens=google_tokens)
 
         user_email = id_token_decoded["email"]
+        
         request_user_list = User.objects.filter(email=user_email)
         user = request_user_list.get(email=user_email) if request_user_list else None
 
-        if user is None:
+        if user is None:            
             return JsonResponse({"error": f"User with email {user_email} is not found."}, status=404)
 
         login(request, user)
@@ -78,4 +90,3 @@ class GoogleLoginApi(View):
         }
 
         return JsonResponse(result, status=200)
-    

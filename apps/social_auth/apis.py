@@ -7,6 +7,7 @@ from .service import (
     GoogleRawLoginFlowService,
 )
 from apps.users.models import User
+from .models import CustomSession
 
 
 class PublicApi(APIView):
@@ -18,8 +19,7 @@ class GoogleLoginRedirectApi(PublicApi):
     def get(self, request, *args, **kwargs):
         google_login_flow = GoogleRawLoginFlowService()
         authorization_url, state = google_login_flow.get_authorization_url()
-
-        request.session["google_oauth2_state"] = state
+        CustomSession.objects.create(state=state, application="GOOGLE")
 
         return Response(authorization_url, status=status.HTTP_200_OK)
 
@@ -45,15 +45,15 @@ class GoogleLoginApi(PublicApi):
         if code is None or state is None:
             return Response({"error": "Code and state are required."}, status=status.HTTP_400_BAD_REQUEST)
 
-        session_state = request.session.get("google_oauth2_state")
+        session_state = CustomSession.objects.last()
 
-        # if session_state is None:
-        #     return Response({"error": "CSRF check failed."}, status=status.HTTP_400_BAD_REQUEST)
+        if session_state is None:
+            return Response({"error": "CSRF check failed."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # del request.session["google_oauth2_state"]
+        if state != session_state.state:
+            return Response({"error": "CSRF check failed."}, status=status.HTTP_400_BAD_REQUEST)
 
-        # if state != session_state:
-        #     return Response({"error": "CSRF check failed."}, status=status.HTTP_400_BAD_REQUEST)
+        session_state.delete()
 
         google_login_flow = GoogleRawLoginFlowService()
 
