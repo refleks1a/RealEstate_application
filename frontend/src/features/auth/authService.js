@@ -1,8 +1,10 @@
 import axios from "axios";
 
+
 const REGISTER_URL = "/api/v1/auth/users/";
 const LOGIN_URL = "/api/v1/auth/jwt/create/";
 const ACTIVATE_URL = "/api/v1/auth/users/activation/";
+
 
 // Register user
 const register = async (userData) => {
@@ -16,8 +18,8 @@ const register = async (userData) => {
 	return response.data;
 };
 
-// Login user
 
+// Login user
 const login = async (userData) => {
 	const config = {
 		headers: {
@@ -31,8 +33,12 @@ const login = async (userData) => {
 	return response.data;
 };
 
+
+// Logout user
 const logout = () => localStorage.removeItem("user");
 
+
+// Activate user
 const activate = async (userData) => {
 	const config = {
 		headers: {
@@ -43,6 +49,19 @@ const activate = async (userData) => {
 	return response.data;
 };
 
-const authService = { register, login, logout, activate };
+
+// Login user with google
+const login_google = async () => {
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+	const response = await axios.get("/api/v1/social-auth/redirect/", config);
+	console.log(response.data)
+	return response.data;
+};
+
+const authService = { register, login, logout, activate, login_google };
 
 export default authService;

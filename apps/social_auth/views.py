@@ -3,10 +3,6 @@ from django.contrib.auth import login
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views import View
-from urllib.parse import urlencode
-from django.contrib import messages
-from django.urls import reverse_lazy
-import requests
 
 from .service import (
     GoogleRawLoginFlowService,
@@ -14,7 +10,6 @@ from .service import (
 
 from apps.users.models import User
 from .models import CustomSession
-
 
 import environ
 
@@ -90,3 +85,4 @@ class GoogleLoginApi(View):
         }
 
         return JsonResponse(result, status=200)
+    

@@ -129,6 +129,20 @@ const LogInModal = (props) => {
                 <Button className="bg-gray-900 cursor-pointer font-bold py-4 rounded-[10px] text-center text-lg text-white-A700 w-full">
                   Log in
                 </Button>
+                <Button
+                  className="common-pointer bg-white-A700 border border-gray-600 border-solid cursor-pointer flex items-center justify-center min-w-[420px] sm:min-w-full px-[34px] py-[17px] rounded-[10px]"
+                  leftIcon={
+                    <Img
+                      className="h-5 mb-[5px] mr-2.5"
+                      src="images/img_refresh_gray_900.svg"
+                      alt="refresh"
+                    />
+                  }
+                >
+                  <div className="font-bold sm:px-5 text-gray-900 text-left text-lg">
+                    Log in with Google
+                  </div>
+                </Button>
               </div>
             </form>
             <Line className="bg-bluegray-100 h-px w-full" />

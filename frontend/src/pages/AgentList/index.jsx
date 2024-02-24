@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Button, Img, Input, SelectBox, Text } from "../../components";
 import LandingPageFooter from "../../components/LandingPageFooter";
@@ -26,8 +26,12 @@ const AgentListPage = () => {
 	);
 
 	const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 	useEffect(() => {
+    if (!user) {
+      navigate("/")
+    }
 
     const data = {
       "token": user.access
@@ -35,7 +39,11 @@ const AgentListPage = () => {
 
     dispatch(getAgents(data));
 
-	}, [dispatch, isError, message]);
+	}, [dispatch, isError, message, isErrorUser, isSuccessUser, messageUser]);
+  
+  if (!user && !isLoadingUser) {
+    navigate("/")
+  }
 
   return (
     <>

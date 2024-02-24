@@ -48,6 +48,7 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
     "djcelery_email",
     "attrs",
+    "drf_spectacular", 
 ]
 
 LOCAL_APPS = [
@@ -151,7 +152,9 @@ AUTH_USER_MODEL = "users.User"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
-    )
+    ),
+    
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema', 
 }
 
 SIMPLE_JWT = {
@@ -223,3 +226,16 @@ logging.config.dictConfig(
 )
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+SOCIAL_AUTH_FACEBOOK_KEY = env('FB_APP_ID')
+SOCIAL_AUTH_FACEBOOK_SECRET = env('FB_APP_SECRET')
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Real Estate API", 
+    "VERSION": "1.0.1", 
+    "SERVE_INCLUDE_SCHEMA": False, 
+    "SWAGGER_UI_SETTINGS": {
+        "filter": True, 
+    },
+    "COMPONENT_SPLIT_REQUEST": True
+}

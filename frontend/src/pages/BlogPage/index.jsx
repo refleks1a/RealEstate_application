@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { Button, Img, Input, List, SelectBox, Text } from "../../components";
+import { Button, Img, Input, SelectBox, Text } from "../../components";
 import BlogPageColumnactive from "../../components/BlogPageColumnactive";
 import LandingPageFooter from "../../components/LandingPageFooter";
 import LandingPageHeader from "../../components/LandingPageHeader";
@@ -32,8 +33,13 @@ const BlogPagePage = () => {
 
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!user) {
+      navigate("/")
+    }
+
     if (isError) {
 			console.log(message)
 		}
@@ -44,7 +50,11 @@ const BlogPagePage = () => {
 
     dispatch(getPosts(data));
 
-  }, [dispatch, isError, message]);
+  }, [dispatch, isError, message, isErrorUser, isSuccessUser, messageUser]);
+
+  if (!user && !isLoadingUser) {
+    navigate("/")
+  }
 
   return (
     <>
