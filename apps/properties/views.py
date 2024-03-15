@@ -13,11 +13,12 @@ from .pagination import PropertyPagination
 from .serializers import (PropertyCreateSerializer, PropertySerializer,
                           PropertyViewSerializer)
 
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiRequest
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 
+import redis
 
 logger = logging.getLogger(__name__)
-
+cache = redis.Redis(host='redis', port=6379, db=0)
 
 class PropertyFilter(django_filters.FilterSet):
     advert_type = django_filters.CharFilter(
@@ -92,7 +93,7 @@ class ListAllPropertiesAPIView(generics.ListAPIView):
     serializer_class = PropertySerializer
     queryset = Property.objects.all().order_by("-created_at")
     pagination_class = PropertyPagination
-
+    
     filter_backends = [
         DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter,
     ]

@@ -69,7 +69,7 @@ source env/bin/activate
 ```
 Finally, run the application ( Will run on 'http://localhost:8080' )
 ```bash
-make build && make up
+make build && make up && make collectstatic
 ```
 
 
