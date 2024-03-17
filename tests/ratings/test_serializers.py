@@ -1,9 +1,11 @@
-import pytest
+import pytest 
+
 from django.contrib.auth import get_user_model
 
-from rest_framework.test import APIRequestFactory, force_authenticate
+from rest_framework.test import APIRequestFactory
 
 from apps.ratings.models import Rating
+from apps.ratings.serializers import RatingSerializer
 
 
 User =  get_user_model()
@@ -24,8 +26,8 @@ def authenticated_request_factory():
 
 
 @pytest.mark.django_db
-def test_rating_str(authenticated_request_factory, profile):
-    factory, user =authenticated_request_factory
+def test_rating_serializer(authenticated_request_factory, profile):
+    factory, user=authenticated_request_factory
 
     new_rating = Rating.objects.create(
         rater=user,
@@ -34,4 +36,7 @@ def test_rating_str(authenticated_request_factory, profile):
         comment="Sample",
     )
 
-    assert new_rating.__str__() == f"{new_rating.agent} rated at {new_rating.rating} by {new_rating.rater}"
+    serializer = RatingSerializer(new_rating)
+
+    assert serializer.data["rater"] == f"{new_rating.rater.username}"
+    assert serializer.data["agent"] == f"{new_rating.agent.user.username}"

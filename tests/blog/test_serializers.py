@@ -1,8 +1,8 @@
-# core/posts/tests/test_serializers.py
-
 import pytest
+
 from apps.blog.models import Post
-from apps.blog.serializers import PostSerializer, PostCreateSerializer, PostViewSerializer
+from apps.blog.serializers import PostSerializer
+
 
 @pytest.mark.django_db
 def test_post_serializer(profile):
@@ -12,8 +12,3 @@ def test_post_serializer(profile):
 
     assert serializer.data["title"] == "Test Post"
     assert serializer.data["body"] == "Test body content"
-
-# Similar tests for PostCreateSerializer and PostViewSerializer
-# ...
-
-# Add more test cases as needed
